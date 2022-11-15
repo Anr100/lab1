@@ -1,23 +1,20 @@
-import { useStat,useEffect } from "react";
-import { sendRequest, urlLookup } from "../../settings/settings";
+import { sendRequest, urlLookup } from "./settings/settings";
+import { useState, useEffect } from "react";
 
 function App() {
-  const [datas, setDatas] = useStat();
-useEffect(() => {
+  const [datas, setDatas] = useState();
+  useEffect(() => {
+    const bodyChiglel = {
+      action: "chiglel",
+    };
 
-  const bodyChiglel = {
-    action: "chiglel",
-  };
+    sendRequest(urlLookup, bodyChiglel).then((data) => setDatas(data));
+  }, []);
 
-  sendRequest(urlLookup,bodyChiglel).then((data) => setDatas(data));
-  },[])
-  
   return (
-  
-   <p>{datas && JSON.stringify(datas)}</p>
-   
+    <>
+      <p>{datas && JSON.stringify(datas)}</p>
+    </>
   );
-
-
 }
 export default App;
